@@ -30,6 +30,26 @@ saveBtn.addEventListener('click', () => {
     return;
   }
 
+  const rows = table.getElementsByTagName('tr');
+  for (let i = 1; i < rows.length; i++) {
+    const existingModelis = rows[i].cells[0].innerText.trim();
+    const existingMac = rows[i].cells[1].innerText.trim();
+    const existingStatuss = rows[i].cells[2].innerText.trim();
+    const existingVieta = rows[i].cells[3].innerText.trim();
+    const existingKlients = rows[i].cells[4].innerText.trim();
+
+    if (
+      existingModelis === modelis &&
+      existingMac === mac &&
+      existingStatuss === statuss &&
+      existingVieta === vieta &&
+      existingKlients === klients
+    ) {
+      alert('Šāds inventārs jau ir pievienots tabulā!');
+      return;
+    }
+  }
+
 
   const row = table.insertRow(-1);
   row.insertCell(0).innerText = modelis;
@@ -37,6 +57,7 @@ saveBtn.addEventListener('click', () => {
   row.insertCell(2).innerText = statuss;
   row.insertCell(3).innerText = vieta;
   row.insertCell(4).innerText = klients;
+
 
   document.getElementById('modelis').value = '';
   document.getElementById('mac').value = '';
@@ -46,3 +67,4 @@ saveBtn.addEventListener('click', () => {
 
   panel.classList.remove('open');
 });
+

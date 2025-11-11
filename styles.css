@@ -19,21 +19,22 @@ h1 {
 
 body {
   background-color:#b7945c ;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .augseja-sadala {
   background-color: white;
   width: 90%;
-  height: 400px;
+  height: auto;
   margin: 40px auto;
   padding: 30px;
+  position: relative;
 }
-
 
 .meklesana input[type=text]{
   margin-top: 20px;
   padding: 6px;
-  border: solid;
+  border: solid 1px #000;
   color: rgb(0, 0, 0);
   font-size: 16px;
   background-color: rgb(255, 255, 255);
@@ -52,14 +53,15 @@ body {
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
+  margin-top: 30px;
 }
 
 td, th {
   border: 1px solid #000000;
   padding: 8px;
+  text-align: left;
 }
-
 
 .button {
   border: none;
@@ -76,3 +78,51 @@ td, th {
 .button1 {background-color: #9d2235;}
 .button2 {background-color: #9d2235;}
 .button3 {background-color: #9d2235;}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.side-panel.open {
+  right: 0;
+}
+
+.panel-content {
+  padding: 20px;
+}
+
+.panel-content h2 {
+  color: #000000;
+}
+
+.panel-content label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.panel-content input,
+.panel-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.panel-buttons {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.panel-buttons .button {
+  margin-left: 10px;
+}
