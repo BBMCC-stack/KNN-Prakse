@@ -20,31 +20,58 @@
         <input type="text" placeholder="Meklēt...">
     </div>
 
-        <div class="statuss">
-            <select name="statuss" id="statuss-select">
-                <option value="all">Visi statusi</option>
-                <option value="available">Pieejams</option>
-                <option value="rented">Izīrēts</option>
-                <option value="writtenoff">Noraksīts</option>
-            </select>
-        </div>
+    <div class="statuss">
+        <select name="statuss" id="statuss-select">
+            <option value="all">Visi statusi</option>
+            <option value="available">Pieejams</option>
+            <option value="rented">Izīrēts</option>
+            <option value="writtenoff">Norakstīts</option>
+        </select>
+    </div>
 
-            <div class="lejas-sadala">
-                <button class="button button3">Pievienot ierīci</button>
-            </div>
-            <table>
-                <tr>
-                    <td>Modelis</td>
-                    <td>MAC</td>
-                    <td>Statuss</TD>
-                    <td>Atrašanās vieta</td>
-                    <td>Klients</td>
-                </tr>
-            </table>
+    <div class="lejas-sadala">
+        <button class="button button3" id="openFormBtn">Pievienot ierīci</button>
+    </div>
+
+    <table id="inventoryTable">
+        <tr>
+            <th>Modelis</th>
+            <th>MAC</th>
+            <th>Statuss</th>
+            <th>Atrašanās vieta</th>
+            <th>Klients</th>
+        </tr>
+    </table>
+
+<div id="sidePanel" class="side-panel">
+    <div class="panel-content">
+        <h2>Pievienot inventāru</h2>
+        
+        <label>Modeļa nosaukums</label>
+        <input type="text" id="modelis" placeholder="Modelis" >
+
+        <label>MAC adrese</label>
+        <input type="text" id="mac" placeholder="MAC adrese">
+
+        <label>Statuss</label>
+        <select id="statuss" >
+            <option value="Pieejams">Pieejams</option>
+            <option value="Izīrēts">Izīrēts</option>
+            <option value="Norakstīts">Norakstīts</option>
+        </select>
+
+        <label>Atrašanās vieta</label>
+        <input type="text" id="vieta" placeholder="Atrašanās vieta">
+
+        <label>Klients</label>
+        <input type="text" id="klients" placeholder="Klienta vārds">
+
+        <div class="panel-buttons">
+            <button class="button button1" id="saveBtn">Saglabāt</button>
+            <button class="button button3" id="closeFormBtn">Atcelt</button>
         </div>
     </div>
 </div>
-
-
+<script src="script.js"></script>
 </body>
 </html>
