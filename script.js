@@ -68,3 +68,25 @@ saveBtn.addEventListener('click', () => {
   panel.classList.remove('open');
 });
 
+const statusSelect = document.getElementById('statuss-select');
+
+statusSelect.addEventListener('change', () => {
+    const selectedStatus = statusSelect.value;
+    const rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const rowStatus = rows[i].cells[2].innerText.toLowerCase();
+
+        if (selectedStatus === 'all') {
+            rows[i].style.display = '';
+        } else if (
+            (selectedStatus === 'available' && rowStatus === 'pieejams') ||
+            (selectedStatus === 'rented' && rowStatus === 'izīrēts') ||
+            (selectedStatus === 'writtenoff' && rowStatus === 'norakstīts')
+        ) {
+            rows[i].style.display = '';
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
+});
