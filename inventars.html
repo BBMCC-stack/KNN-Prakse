@@ -14,7 +14,7 @@
 <div class="augseja-sadala">
     <button class="button button1">Inventārs</button>
     <button class="button button1">Klienti</button>
-    <button class="button button1">Filtrēšana</button>
+    <button class="button button1" id="openFilterBtn">Filtrēšana</button>
 
     <div class="meklesana">
         <input type="text" placeholder="Meklēt...">
@@ -33,6 +33,36 @@
         <button class="button button3" id="openFormBtn">Pievienot ierīci</button>
     </div>
 
+    <div id="filterPanel" class="side-panel">
+    <div class="panel-content">
+        <h2>Filtrēšana</h2>
+
+        <label>Modeļa nosaukums</label>
+        <input type="text" id="filterModel" placeholder="Modelis">
+
+        <label>MAC adrese</label>
+        <input type="text" id="filterMac" placeholder="MAC adrese">
+
+        <label>Statuss</label>
+        <select id="filterStatus">
+            <option value="Pieejams">Pieejams</option>
+            <option value="Izīrēts">Izīrēts</option>
+            <option value="Norakstīts">Norakstīts</option>
+        </select>
+        <label>Atrašanās vieta</label>
+        <input type="text" id="filterLocation" placeholder="Atrašanās vieta">
+
+        <label>Klients</label>
+        <input type="text" id="filterClient" placeholder="Klients">
+
+        <div class="panel-buttons">
+            <button class="button button1" id="applyFilterBtn">Filtrēt</button>
+            <button class="button button3" id="closeFilterBtn">Atcelt</button>
+            <button class="button button1" id="clearFilterBtn">Notīrīt filtru</button>
+        </div>
+    </div>
+</div>
+
     <table id="inventoryTable">
         <tr>
             <th>Modelis</th>
@@ -46,7 +76,7 @@
 <div id="sidePanel" class="side-panel">
     <div class="panel-content">
         <h2>Pievienot inventāru</h2>
-        
+
         <label>Modeļa nosaukums</label>
         <input type="text" id="modelis" placeholder="Modelis" >
 
@@ -64,7 +94,7 @@
         <input type="text" id="vieta" placeholder="Atrašanās vieta">
 
         <label>Klients</label>
-        <input type="text" id="klients" placeholder="Klienta vārds">
+        <input type="text" id="klients" placeholder="Klients">
 
         <div class="panel-buttons">
             <button class="button button1" id="saveBtn">Saglabāt</button>
