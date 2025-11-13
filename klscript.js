@@ -81,7 +81,7 @@ saveBtn.addEventListener('click', () => {
     // Add action button cell
     const actionCell = row.insertCell(6);
     const actionBtn = document.createElement('button');
-    actionBtn.textContent = '+';
+    actionBtn.textContent = '✎';
     actionBtn.className = 'button button3';
     actionBtn.style.padding = '8px 16px';
     actionBtn.style.fontSize = '14px';
@@ -98,3 +98,76 @@ saveBtn.addEventListener('click', () => {
 
   panel.classList.remove('open');
 });
+
+// --- Filter panel logic ---
+const filterButton = document.querySelector('.button.button1:nth-of-type(3)');
+const filterPanel = document.getElementById('filterPanel');
+const closeFilterBtn = document.getElementById('closeFilterBtn');
+const applyFilterBtn = document.getElementById('applyFilterBtn');
+const clearFilterBtn = document.getElementById('clearFilterBtn');
+
+if (filterButton && filterPanel)
+  filterButton.addEventListener('click', () => {
+    panel.classList.remove('open');
+    filterPanel.classList.add('active');
+  });
+
+if (closeFilterBtn)
+  closeFilterBtn.addEventListener('click', () => {
+    filterPanel.classList.remove('active');
+  });
+
+if (applyFilterBtn)
+  applyFilterBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const vards = document.getElementById('filterVards').value.toLowerCase();
+    const adrese = document.getElementById('filterAdrese').value.toLowerCase();
+    const telefons = document.getElementById('filterTelefons').value.toLowerCase();
+    const epasts = document.getElementById('filterEpasts').value.toLowerCase();
+    const irsakdat = document.getElementById('filterIrsakdat').value;
+    const irbeigdat = document.getElementById('filterIrbeigdat').value;
+    if (!vards && !adrese && !telefons && !epasts && !irsakdat && !irbeigdat) {
+      alert('Lūdzu aizpildi vismaz vienu filtra lauku!');
+      return;
+    }
+    const rows = document.querySelectorAll('#inventoryTable tr');
+    let visibleCount = 0;
+    rows.forEach((row, index) => {
+      if (index === 0) return;
+      const cells = row.querySelectorAll('td');
+      const matches =
+        (!vards || cells[0].innerText.toLowerCase().includes(vards)) &&
+        (!adrese || cells[1].innerText.toLowerCase().includes(adrese)) &&
+        (!telefons || cells[2].innerText.toLowerCase().includes(telefons)) &&
+        (!epasts || cells[3].innerText.toLowerCase().includes(epasts)) &&
+        (!irsakdat || cells[4].innerText.includes(irsakdat)) &&
+        (!irbeigdat || cells[5].innerText.includes(irbeigdat));
+      row.style.display = matches ? '' : 'none';
+      if (matches) visibleCount++;
+    });
+    if (visibleCount === 0) {
+      alert('Nav atrasts neviens ieraksts ar šādiem filtriem.');
+      rows.forEach((row, index) => {
+        if (index === 0) return;
+        row.style.display = '';
+      });
+      return;
+    }
+    filterPanel.classList.remove('active');
+  });
+
+if (clearFilterBtn) {
+  clearFilterBtn.addEventListener('click', () => {
+    document.getElementById('filterVards').value = '';
+    document.getElementById('filterAdrese').value = '';
+    document.getElementById('filterTelefons').value = '';
+    document.getElementById('filterEpasts').value = '';
+    document.getElementById('filterIrsakdat').value = '';
+    document.getElementById('filterIrbeigdat').value = '';
+    const rows = document.querySelectorAll('#inventoryTable tr');
+    rows.forEach((row, index) => {
+      if (index === 0) return;
+      row.style.display = '';
+    });
+  });
+}
