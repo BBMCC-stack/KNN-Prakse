@@ -2,13 +2,13 @@
 <html>
 <head>
 <link rel="stylesheet" href="styles.css">
-<title>Inventara pārvaldības sistēma</title>
+<title>Klientu pārvaldības sistēma</title>
 <meta charset="UTF-8">
 
 </head>
-<body>
+<body class="klienti-page">
 <header>
-    <h1>Inventāra pārvaldības sistēma</h1>
+    <h1>Klientu pārvaldības sistēma</h1>
 </header>
 
 <div class="augseja-sadala">
@@ -39,7 +39,7 @@
 
 <div id="sidePanel" class="side-panel">
     <div class="panel-content">
-        <h2>Pievienot inventāru</h2>
+        <h2>Pievienot klientu</h2>
 
         <label>Klienta vārds</label>
         <input type="text" id="vards" placeholder="Vārds/Nosaukums">
@@ -62,6 +62,36 @@
         <div class="panel-buttons">
             <button class="button button1" id="saveBtn">Saglabāt</button>
             <button class="button button3" id="closeFormBtn">Atcelt</button>
+        </div>
+    </div>
+</div>
+
+<div id="filterPanel" class="side-panel">
+    <div class="panel-content">
+        <h2>Filtrēšana</h2>
+
+        <label>Klienta vārds</label>
+        <input type="text" id="filterVards" placeholder="Vārds/Nosaukums">
+
+        <label>Klienta adrese</label>
+        <input type="text" id="filterAdrese" placeholder="Klienta adrese">
+
+        <label>Klienta telefona nr</label>
+        <input type="text" id="filterTelefons" placeholder="Telefona nr">
+
+        <label>Klienta e-pasts</label>
+        <input type="text" id="filterEpasts" placeholder="E-pasts">
+
+        <label>Īres sākuma datums</label>
+        <input type="date" id="filterIrsakdat" placeholder="Īres sākuma datums">
+        
+        <label>Īres beigu datums</label>
+        <input type="date" id="filterIrbeigdat" placeholder="Īres beigu datums">
+
+        <div class="panel-buttons">
+            <button class="button button1" id="applyFilterBtn">Filtrēt</button>
+            <button class="button button3" id="closeFilterBtn">Atcelt</button>
+            <button class="button button1" id="clearFilterBtn">Notīrīt filtru</button>
         </div>
     </div>
 </div>

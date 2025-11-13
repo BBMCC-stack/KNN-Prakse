@@ -3,80 +3,35 @@ const openBtn = document.getElementById('openFormBtn');
 const closeBtn = document.getElementById('closeFormBtn');
 const saveBtn = document.getElementById('saveBtn');
 const table = document.getElementById('inventoryTable');
-
-const filterButton = document.getElementById('openFilterBtn');
-const filterPanel = document.getElementById('filterPanel');
-const closeFilterBtn = document.getElementById('closeFilterBtn');
-const applyFilterBtn = document.getElementById('applyFilterBtn');
+let editingRow = null; // Track which row is being edited
 
 openBtn.addEventListener('click', () => {
-  filterPanel.classList.remove('active');
+  editingRow = null; // Clear editing mode when adding new
+  clearForm();
+  const filterPanel = document.getElementById('filterPanel');
+  if (filterPanel) filterPanel.classList.remove('active');
+  panel.classList.add('open');
+});
+
+openBtn.addEventListener('click', () => {
+  editingRow = null;
+  clearForm();
   panel.classList.add('open');
 });
 
 closeBtn.addEventListener('click', () => {
+  editingRow = null;
+  clearForm();
   panel.classList.remove('open');
 });
 
 window.addEventListener('click', (e) => {
-  if (e.target === panel) panel.classList.remove('open');
-});
-
-if (filterButton && filterPanel)
-  filterButton.addEventListener('click', () => {
+  if (e.target === panel) {
+    editingRow = null;
+    clearForm();
     panel.classList.remove('open');
-    filterPanel.classList.add('active');
-  });
-
-  closeFilterBtn.addEventListener('click', () => {
-    filterPanel.classList.remove('active');
-  });
-
-  applyFilterBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  const model = document.getElementById('filterModel').value.toLowerCase();
-  const mac = document.getElementById('filterMac').value.toLowerCase();
-  const status = document.getElementById('filterStatus').value.toLowerCase();
-  const location = document.getElementById('filterLocation').value.toLowerCase();
-  const client = document.getElementById('filterClient').value.toLowerCase();
-
-  if (!model && !mac && !status && !location && !client) {
-    alert('Lūdzu aizpildi vismaz vienu filtra lauku!');
-    return;
   }
-
-  const rows = document.querySelectorAll('#inventoryTable tr');
-  let visibleCount = 0;
-
-  rows.forEach((row, index) => {
-    if (index === 0) return;
-    const cells = row.querySelectorAll('td');
-    const matches =
-      (!model || cells[0].innerText.toLowerCase().includes(model)) &&
-      (!mac || cells[1].innerText.toLowerCase().includes(mac)) &&
-      (!status || cells[2].innerText.toLowerCase().includes(status)) &&
-      (!location || cells[3].innerText.toLowerCase().includes(location)) &&
-      (!client || cells[4].innerText.toLowerCase().includes(client));
-
-    row.style.display = matches ? '' : 'none';
-    if (matches) visibleCount++;
-  });
-
-  if (visibleCount === 0) {
-    alert('Nav atrasts neviens ieraksts ar šādiem filtriem.');
-    // Rāda atpakaļ visas rindas, jo neko neatlasa
-    rows.forEach((row, index) => {
-      if (index === 0) return;
-      row.style.display = '';
-    });
-    return;
-  }
-
-  // Ja bija atrasti, tad aizver paneli
-  filterPanel.classList.remove('active');
 });
-
 
 saveBtn.addEventListener('click', () => {
   const modelis = document.getElementById('modelis').value.trim();
@@ -85,84 +40,156 @@ saveBtn.addEventListener('click', () => {
   const vieta = document.getElementById('vieta').value.trim();
   const klients = document.getElementById('klients').value.trim();
 
-  if (!modelis || !mac || !statuss || !vieta || !klients) {
-    alert('Lūdzu aizpildi visus laukumus!');
+  if (!modelis || !mac) {
+    alert('Lūdzu aizpildi vismaz modeli un MAC adresi!');
     return;
   }
 
-  const rows = table.getElementsByTagName('tr');
-  for (let i = 1; i < rows.length; i++) {
-    const existingModelis = rows[i].cells[0].innerText.trim();
-    const existingMac = rows[i].cells[1].innerText.trim();
-    const existingStatuss = rows[i].cells[2].innerText.trim();
-    const existingVieta = rows[i].cells[3].innerText.trim();
-    const existingKlients = rows[i].cells[4].innerText.trim();
-
-    if (
-      existingModelis === modelis &&
-      existingMac === mac &&
-      existingStatuss === statuss &&
-      existingVieta === vieta &&
-      existingKlients === klients
-    ) {
-      alert('Šāds inventārs jau ir pievienots tabulā!');
-      return;
-    }
+  if (editingRow) {
+    // Update existing row
+    editingRow.cells[0].innerText = modelis;
+    editingRow.cells[1].innerText = mac;
+    editingRow.cells[2].innerText = statuss;
+    editingRow.cells[3].innerText = vieta;
+    editingRow.cells[4].innerText = klients;
+    editingRow = null;
+  } else {
+    // Add new row
+    const row = table.insertRow(-1);
+    row.insertCell(0).innerText = modelis;
+    row.insertCell(1).innerText = mac;
+    row.insertCell(2).innerText = statuss;
+    row.insertCell(3).innerText = vieta;
+    row.insertCell(4).innerText = klients;
+    // Add edit button
+    const actionCell = row.insertCell(5);
+    const editBtn = document.createElement('button');
+    editBtn.textContent = '✎';
+    editBtn.className = 'button button3';
+    editBtn.style.padding = '8px 16px';
+    editBtn.style.fontSize = '14px';
+    editBtn.onclick = () => {
+      editingRow = row;
+      loadRowData(row);
+      panel.classList.add('open');
+    };
+    actionCell.appendChild(editBtn);
   }
 
-  const row = table.insertRow(-1);
-  row.insertCell(0).innerText = modelis;
-  row.insertCell(1).innerText = mac;
-  row.insertCell(2).innerText = statuss;
-  row.insertCell(3).innerText = vieta;
-  row.insertCell(4).innerText = klients;
-
-  document.getElementById('modelis').value = '';
-  document.getElementById('mac').value = '';
-  document.getElementById('statuss').value = 'Pieejams';
-  document.getElementById('vieta').value = '';
-  document.getElementById('klients').value = '';
-
+  clearForm();
   panel.classList.remove('open');
 });
 
-const statusSelect = document.getElementById('statuss-select');
-statusSelect.addEventListener('change', () => {
-  const selectedStatus = statusSelect.value;
-  const rows = table.getElementsByTagName('tr');
-
-  for (let i = 1; i < rows.length; i++) {
-    const rowStatus = rows[i].cells[2].innerText.toLowerCase();
-
-    if (selectedStatus === 'all') {
-      rows[i].style.display = '';
-    } else if (
-      (selectedStatus === 'available' && rowStatus === 'pieejams') ||
-      (selectedStatus === 'rented' && rowStatus === 'izīrēts') ||
-      (selectedStatus === 'writtenoff' && rowStatus === 'norakstīts')
-    ) {
-      rows[i].style.display = '';
-    } else {
-      rows[i].style.display = 'none';
-    }
-  }
-});
-
+// --- Filter panel logic ---
+const filterButton = document.getElementById('openFilterBtn');
+const filterPanel = document.getElementById('filterPanel');
+const closeFilterBtn = document.getElementById('closeFilterBtn');
+const applyFilterBtn = document.getElementById('applyFilterBtn');
 const clearFilterBtn = document.getElementById('clearFilterBtn');
+
+if (filterButton && filterPanel)
+  filterButton.addEventListener('click', () => {
+    panel.classList.remove('open');
+    filterPanel.classList.add('active');
+  });
+
+if (closeFilterBtn)
+  closeFilterBtn.addEventListener('click', () => {
+    filterPanel.classList.remove('active');
+  });
+
+if (applyFilterBtn)
+  applyFilterBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const model = document.getElementById('filterModel').value.toLowerCase();
+    const mac = document.getElementById('filterMac').value.toLowerCase();
+    const status = document.getElementById('filterStatus').value.toLowerCase();
+    const location = document.getElementById('filterLocation').value.toLowerCase();
+    const client = document.getElementById('filterClient').value.toLowerCase();
+    if (!model && !mac && !status && !location && !client) {
+      alert('Lūdzu aizpildi vismaz vienu filtra lauku!');
+      return;
+    }
+    const rows = document.querySelectorAll('#inventoryTable tr');
+    let visibleCount = 0;
+    rows.forEach((row, index) => {
+      if (index === 0) return;
+      const cells = row.querySelectorAll('td');
+      const matches =
+        (!model || cells[0].innerText.toLowerCase().includes(model)) &&
+        (!mac || cells[1].innerText.toLowerCase().includes(mac)) &&
+        (!status || cells[2].innerText.toLowerCase().includes(status)) &&
+        (!location || cells[3].innerText.toLowerCase().includes(location)) &&
+        (!client || cells[4].innerText.toLowerCase().includes(client));
+      row.style.display = matches ? '' : 'none';
+      if (matches) visibleCount++;
+    });
+    if (visibleCount === 0) {
+      alert('Nav atrasts neviens ieraksts ar šādiem filtriem.');
+      rows.forEach((row, index) => {
+        if (index === 0) return;
+        row.style.display = '';
+      });
+      return;
+    }
+    filterPanel.classList.remove('active');
+  });
+
 if (clearFilterBtn) {
   clearFilterBtn.addEventListener('click', () => {
-    // Notīra visus filtra laukus
     document.getElementById('filterModel').value = '';
     document.getElementById('filterMac').value = '';
     document.getElementById('filterStatus').value = '';
     document.getElementById('filterLocation').value = '';
     document.getElementById('filterClient').value = '';
-
-    // Parāda visas rindas atpakaļ tabulā
     const rows = document.querySelectorAll('#inventoryTable tr');
     rows.forEach((row, index) => {
       if (index === 0) return;
       row.style.display = '';
+    });
+  });
+}
+
+function clearForm() {
+  document.getElementById('modelis').value = '';
+  document.getElementById('mac').value = '';
+  document.getElementById('statuss').value = 'Pieejams';
+  document.getElementById('vieta').value = '';
+  document.getElementById('klients').value = '';
+}
+
+function loadRowData(row) {
+  document.getElementById('modelis').value = row.cells[0].innerText;
+  document.getElementById('mac').value = row.cells[1].innerText;
+  document.getElementById('statuss').value = row.cells[2].innerText;
+  document.getElementById('vieta').value = row.cells[3].innerText;
+  document.getElementById('klients').value = row.cells[4].innerText;
+}
+
+const statusSelect = document.getElementById('statuss-select');
+if (statusSelect) {
+  statusSelect.addEventListener('change', () => {
+    const selected = statusSelect.value.toLowerCase(); // all / available / rented / writtenoff
+    const rows = document.querySelectorAll('#inventoryTable tr');
+
+    rows.forEach((row, index) => {
+      if (index === 0) return; // izlaiž tabulas virsrakstus
+      const statusCell = row.cells[2]; // 3. kolonna ir "Statuss"
+      if (!statusCell) return;
+
+      const cellText = statusCell.innerText.toLowerCase();
+
+      if (selected === 'all') {
+        row.style.display = '';
+      } else if (
+        (selected === 'available' && cellText.includes('pieejams')) ||
+        (selected === 'rented' && cellText.includes('izīrēts')) ||
+        (selected === 'writtenoff' && cellText.includes('norakstīts'))
+      ) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
     });
   });
 }
