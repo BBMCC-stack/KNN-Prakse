@@ -2,7 +2,7 @@ const panel = document.getElementById('sidePanel');
 const openBtn = document.getElementById('openFormBtn');
 const closeBtn = document.getElementById('closeFormBtn');
 const saveBtn = document.getElementById('saveBtn');
-const table = document.getElementById('inventoryTable');
+const klientuTable = document.getElementById('klientuTable');
 let editingRow = null; // Track which row is being edited
 
 openBtn.addEventListener('click', () => {
@@ -70,7 +70,7 @@ saveBtn.addEventListener('click', () => {
     editingRow = null;
   } else {
     // Add new row to klienti table
-    const row = table.insertRow(-1);
+    const row = klientuTable.insertRow(-1);
     row.insertCell(0).innerText = vards;
     row.insertCell(1).innerText = adrese;
     row.insertCell(2).innerText = telefons;
@@ -130,7 +130,7 @@ if (applyFilterBtn)
       alert('Lūdzu aizpildi vismaz vienu filtra lauku!');
       return;
     }
-    const rows = document.querySelectorAll('#inventoryTable tr');
+    const rows = document.querySelectorAll('#kleintuTable tr');
     let visibleCount = 0;
     rows.forEach((row, index) => {
       if (index === 0) return;
@@ -164,10 +164,34 @@ if (clearFilterBtn) {
     document.getElementById('filterEpasts').value = '';
     document.getElementById('filterIrsakdat').value = '';
     document.getElementById('filterIrbeigdat').value = '';
-    const rows = document.querySelectorAll('#inventoryTable tr');
+    const rows = document.querySelectorAll('#klientuTable tr');
     rows.forEach((row, index) => {
       if (index === 0) return;
       row.style.display = '';
     });
   });
+}
+
+const searchInput = document.getElementById('searchInput');
+const klientaTable = document.getElementById('klientuTable');
+
+if (searchInput && klientuTable) {
+    searchInput.addEventListener('input', function () {
+        const filter = searchInput.value.toLowerCase();
+        const rows = klientuTable.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let match = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    match = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = match ? '' : 'none';
+        }
+    });
 }

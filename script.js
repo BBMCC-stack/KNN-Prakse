@@ -2,7 +2,7 @@ const panel = document.getElementById('sidePanel');
 const openBtn = document.getElementById('openFormBtn');
 const closeBtn = document.getElementById('closeFormBtn');
 const saveBtn = document.getElementById('saveBtn');
-const table = document.getElementById('inventoryTable');
+const inventaruTable = document.getElementById('inventoryTable');
 let editingRow = null; // Track which row is being edited
 
 openBtn.addEventListener('click', () => {
@@ -55,7 +55,7 @@ saveBtn.addEventListener('click', () => {
     editingRow = null;
   } else {
     // Add new row
-    const row = table.insertRow(-1);
+    const row = inventaruTable.insertRow(-1);
     row.insertCell(0).innerText = modelis;
     row.insertCell(1).innerText = mac;
     row.insertCell(2).innerText = statuss;
@@ -192,4 +192,28 @@ if (statusSelect) {
       }
     });
   });
+}
+
+const searchInput = document.getElementById('searchInput');
+const inventaraTable = document.getElementById('inventoryTable');
+
+if (searchInput && inventaraTable) {
+    searchInput.addEventListener('input', function () {
+        const filter = searchInput.value.toLowerCase();
+        const rows = inventaraTable.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let match = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    match = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = match ? '' : 'none';
+        }
+    });
 }
