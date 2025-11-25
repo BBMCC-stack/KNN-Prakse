@@ -1,9 +1,16 @@
 <?php
+// Check if POST request
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die("Error 405: Method not allowed. Please submit the form.");
+}
+
 // Database connection
 $servername = "48.222.11.29";
 $username = "example_user";
 $password = "h!JmM3Sygu9Sj!J";
 $dbname = "knn";
+
+echo "Attempting to connect to database...<br>";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -12,9 +19,17 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+echo "Connected successfully!<br>";
+
 // Get form data
+if (!isset($_POST['lietotajv']) || !isset($_POST['parole'])) {
+    die("Error: Missing form data.");
+}
+
 $lietotajv = $_POST['lietotajv'];
 $parole = $_POST['parole'];
+
+echo "Processing login for user: " . htmlspecialchars($lietotajv) . "<br>";
 
 // Check if user exists in database
 $sql = "SELECT id FROM lietotajs WHERE lietotajv = '$lietotajv' AND parole = '$parole'";
@@ -34,4 +49,3 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
