@@ -94,6 +94,12 @@ $conn->set_charset("utf8");
                 ORDER BY id DESC";
         
         $result = $conn->query($sql);
+
+        if (!$result) {
+            echo "<tr><td colspan='6'>Error: " . $conn->error . "</td></tr>";
+        } elseif ($result->num_rows == 0) {
+            echo "<tr><td colspan='6'>No data found in inventars table</td></tr>";
+        }
         
         if ($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -149,4 +155,5 @@ $conn->set_charset("utf8");
 <?php
 $conn->close();
 ?>
+
 
