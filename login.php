@@ -1,8 +1,8 @@
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "48.222.11.29";
+$username = "example_user";
+$password = "h!JmM3Sygu9Sj!J";
 $dbname = "knn";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -34,3 +34,4 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
