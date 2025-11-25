@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$servername = "48.222.11.29";
+$servername = "localhost";
 $username = "example_user";
 $password = "h!JmM3Sygu9Sj!J";
 $dbname = "knn";
@@ -155,5 +155,6 @@ $conn->set_charset("utf8");
 <?php
 $conn->close();
 ?>
+
 
 
