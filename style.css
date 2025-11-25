@@ -1,0 +1,99 @@
+/* header līnija */
+.top-line {
+    background-color: #9d2235; 
+    color: #ffffff; 
+    width: 100%;
+    box-sizing: border-box;
+    display: flex; 
+    align-items: center;
+    padding: 18px 20px; 
+}
+
+
+/* tituls */
+.top-line h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+/* atiestatīt lapas lapas */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* lapas background krāsa un galvenais fonts */
+body {
+    background-color: #b7945c;
+    font-family: Calibri, "Segoe UI", Tahoma, Geneva, sans-serif;
+}
+
+
+/* box-lieluma atiestatīšana */
+* {
+    box-sizing: border-box;
+}
+
+
+/* formas konteineris */
+.responsive-form {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 4px;
+    background-color:  #f2f2f2;
+    padding: 30px;
+    margin: 40px auto; 
+    min-height: 600px; 
+}
+
+/* formas izvietojums*/
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Label */
+label {
+    margin-bottom: 6px;
+}
+
+/* Form title */
+.responsive-form h2 {
+    margin: 0 0 12px 0;
+    font-size: 2rem; 
+    font-weight: 700;
+}
+
+/* ievades lauku noformējums */
+input[type=text], input[type=password], select {
+    width: 100%;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 18px; 
+    line-height: 1.2;
+    min-height: 44px; 
+}
+
+/* "peslēgties" pogas noformējums */
+input[type=submit] {
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    background-color: #9d2235;
+    color: white;
+    padding: 20px 50px;
+    font-size: 18px;
+    margin: 8px 0 0 0; 
+    align-self: flex-start; 
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+

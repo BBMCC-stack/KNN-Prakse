@@ -1,0 +1,166 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+  background-color: #9d2235;
+  text-align: left;
+  margin: 0;
+  padding: 30px;
+  color: rgb(245, 245, 245);
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 35px;
+}
+
+body {
+  background-color:#b7945c ;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.augseja-sadala {
+  background-color: white;
+  width: 90%;
+  height: auto;
+  margin: 40px auto;
+  padding: 30px;
+  position: relative;
+}
+
+.meklesana input[type=text]{
+  margin-top: 20px;
+  padding: 6px;
+  border: solid 1px #000;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  background-color: rgb(255, 255, 255);
+}
+
+.statuss {
+  margin-left: 225px;
+  margin-top: -25px;
+}
+
+.lejas-sadala {
+  margin-left: 330px;
+  margin-top: -45px;
+}
+
+/* Move pievienot button left on klienti page only */
+body.klienti-page .lejas-sadala {
+  margin-left: 230px;
+}
+
+/* Meklēšanas josla + poga vienā rindā */
+.meklesana-rinda {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  margin-top: 20px;
+}
+
+.meklesana-rinda .meklesana input[type=text] {
+  margin-top: 0; /* novert marginu, jo tagad rindā */
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 30px;
+}
+
+td, th {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Action column styling - invisible except button */
+th:last-child {
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  text-align: center;
+  width: 120px;
+}
+
+td:last-child {
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  width: 120px;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #9d2235;}
+.button2 {background-color: #9d2235;}
+.button3 {background-color: #9d2235;}
+
+/* --- Sānu panelis --- */
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.side-panel.open {
+  right: 0;
+}
+
+.side-panel.active {
+  right: 0;
+}
+
+.panel-content {
+  padding: 20px;
+}
+
+.panel-content h2 {
+  color: #9d2235;
+}
+
+.panel-content label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.panel-content input,
+.panel-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.panel-buttons {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.panel-buttons .button {
+  margin-left: 10px;
+}
