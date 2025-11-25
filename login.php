@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Database connection
-$servername = "48.222.11.29";
+$servername = "localhost";
 $username = "example_user";
 $password = "h!JmM3Sygu9Sj!J";
 $dbname = "knn";
@@ -49,3 +49,4 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
