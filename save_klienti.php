@@ -1,5 +1,5 @@
 <?php
-$servername = "48.222.11.29";
+$servername = "localhost";
 $username = "example_user";
 $password = "h!JmM3Sygu9Sj!J";
 $dbname = "knn";
@@ -73,4 +73,5 @@ if ($action == 'add') {
 
 $conn->close();
 ?>
+
 
