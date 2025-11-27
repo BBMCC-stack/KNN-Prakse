@@ -1,4 +1,4 @@
-# KNN Inventory & Client Management System
+# KNN inventāra un klientu ievadīšanas sistēma
 
 KNN ir tīmekļa lietotne, kas ļauj pievienot, rediģēt, filtrēt un pārvaldīt uzņēmuma inventāru un klientu informāciju. Projekts izstrādāts, izmantojot PHP, MySQL, HTML, CSS un JavaScript. Šajā README aprakstīts, kā lokāli uzstādīt un palaist projektu.
 
@@ -69,3 +69,55 @@ $dbname = "knn";
 ### 7. Palaid projektu
 
 Atver pārlūkā:(http://localhost/knn)
+
+---
+
+##  KNN sistēmas instalācijas pamācība uz Azure Linux Ubuntu 22.04 virtuālās mašīnas
+
+### 1.1. Pieslēgšanās Azure portālam
+
+Atver https://portal.azure.com
+
+Pieslēdzies ar savu Microsoft kontu.
+
+### 1.2. Jaunas virtuālās mašīnas izveide
+
+Kreisajā izvēlnē izvēlies "Virtual Machines".
+
+Spied "Create" → "Azure Virtual Machine".
+
+Aizpildi laukus:
+
+Resource Group – izveido jaunu vai izvēlies esošu.
+
+VM Name – piemēram, knn-server.
+
+Region – izvēlies tuvāko reģionu.
+
+Image – Ubuntu Server 22.04 LTS.
+
+Size – pietiek ar B1s vai B2s.
+
+Authentication type – izvēlies:
+
+Password (vienkāršāk)
+
+Izveido lietotāju:
+
+Username: admin
+
+Password: (stipra parole)
+
+Spied Next: Disks, atstāj pēc noklusējuma.
+
+Spied Next: Networking un pārliecinies, ka:
+
+NIC firewall: SSH (22) ir atvērts
+
+vēlāk pievienosim arī HTTP (80) un HTTPS (443)
+
+Spied Review + Create, un tad Create.
+
+VM izveide aizņem ~1 minūti.
+
+### 2. Pieslēgšanās VM caur SSH
