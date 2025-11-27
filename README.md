@@ -61,9 +61,9 @@ CREATE TABLE lietotaji (
 
 Failos save_klienti.php un save_inventars.php iestati:
 
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "localhost";  
+$username = "root";  
+$password = "";  
 $dbname = "knn";
 
 ### 7. Palaid projektu
