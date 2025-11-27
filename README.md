@@ -26,6 +26,7 @@ Izveido datubāzi: knn
 ### 5. Izpildi SQL tabulu izveides komandas
 
 Tabula: klienti
+
 CREATE TABLE klienti (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     kl_nosi VARCHAR(30) DEFAULT NULL COMMENT 'klienta nosaukums',
@@ -37,6 +38,7 @@ CREATE TABLE klienti (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 Tabula: inventars
+
 CREATE TABLE inventars (
     id INT(11) AUTO_INCREMENT PRIMARY KEY COMMENT 'inventāra id',
     liet_id INT(11) DEFAULT NULL COMMENT 'lietotāja id',
@@ -48,8 +50,22 @@ CREATE TABLE inventars (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 tabula: lietotājs
+
 CREATE TABLE lietotaji (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     lietotajv VARCHAR(20) DEFAULT NULL COMMENT 'lietotājvārds',
     parole VARCHAR(20) DEFAULT NULL COMMENT 'lietotāja parole'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+### 6. Konfigurē PHP datubāzes pieslēgumu
+
+Failos save_klienti.php un save_inventars.php iestati:
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "knn";
+
+### 7. Palaid projektu
+
+Atver pārlūkā:(http://localhost/knn)
